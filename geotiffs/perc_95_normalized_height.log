@@ -1,0 +1,10 @@
+2023-05-03 09:58:53,324 -           laserfarm.pipeline_remote_data -       INFO - Pulling from WebDAV /webdav/LAZ/targets_myname/perc_95_normalized_height ...
+2023-05-03 09:59:21,804 -           laserfarm.pipeline_remote_data -       INFO - ... pulling completed.
+2023-05-03 09:59:21,804 -                 laserfarm.geotiff_writer -       INFO - 26 PLY files found
+2023-05-03 09:59:21,873 -                 laserfarm.geotiff_writer -       INFO - No. of points per file: 10000
+2023-05-03 09:59:21,874 -                 laserfarm.geotiff_writer -       INFO - Resolution: (10.0m x 10.0m)
+2023-05-03 09:59:21,874 -                 laserfarm.geotiff_writer -       INFO - Splitting data into (1x1) sub-regions
+2023-05-03 09:59:21,874 -                 laserfarm.geotiff_writer -       INFO - Processing sub-region GeoTiff no. 0 ...
+2023-05-03 09:59:21,874 -                 laserfarm.geotiff_writer -       INFO - ... number of constituent tiles: 26
+2023-05-03 09:59:25,477 -                 laserfarm.geotiff_writer -       INFO - ... processing of sub-region completed.
+2023-05-03 09:59:25,477 -           laserfarm.pipeline_remote_data -       INFO - Pushing to WebDAV /webdav/LAZ/geotiffs_myname ...
