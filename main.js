@@ -1,9 +1,15 @@
 import './style.css';
+import * as ol from 'ol';
 import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
+import {
+    DragRotateAndZoom,
+    defaults as defaultInteractions,
+} from 'ol/interaction.js';
 
 const map = new Map({
+  interactions: defaultInteractions().extend([new DragRotateAndZoom()]),
   target: 'map',
   layers: [
     new TileLayer({
@@ -15,3 +21,4 @@ const map = new Map({
     zoom: 2
   })
 });
+
