@@ -1,12 +1,18 @@
 import "./style.css";
 import { Map, View } from "ol";
 import TileLayer from "ol/layer/Tile";
+import GeoTIFF from "ol/source/GeoTIFF.js";
 import OSM from "ol/source/OSM";
 import { Vector as VectorLayer } from "ol/layer";
 import { Vector as VectorSource } from "ol/source";
 import ImageLayer from "ol/layer/Image";
 import ImageStatic from "ol/source/ImageStatic";
 import { getCenter } from "ol/extent";
+import proj4 from 'proj4';
+import {applyTransform} from 'ol/extent.js';
+import {get as getProjection, getTransform} from 'ol/proj.js';
+import {register} from 'ol/proj/proj4.js';
+import {transformExtent} from 'ol/proj';
 
 // Create a vector source and layer for drawing
 const vectorSource = new VectorSource({
@@ -57,20 +63,22 @@ fetch("data.json")
   .then((response) => response.json())
   .then((data) => {
     const { file_names, min_x, min_y, max_x, max_y } = data;
+        // Calculate center and zoom based on the TIFF file extent
+        const extent = [min_x, min_y, max_x, max_y];
+        // var extent= transformExtent(extent2, 'EPSG:28992', 'EPSG:3857');
 
     // Create image layers for each TIFF file
     file_names.forEach((file) => {
-      const imageLayer = new TileLayer({
+      const imageLayer = new ImageLayer({
         source: new ImageStatic({
-          url: file,
-          imageExtent: [min_x, min_y, max_x, max_y],
+          url: 'data/geotiff_TILE_000_BAND_perc_95_normalized_height.png',
+          imageExtent: extent,
         }),
       });
       map.addLayer(imageLayer);
     });
 
-    // Calculate center and zoom based on the TIFF file extent
-    const extent = [min_x, min_y, max_x, max_y];
+
     const center = getCenter(extent);
     const zoom = map.getView().getZoomForResolution(
       map.getView().getResolutionForExtent(extent)
