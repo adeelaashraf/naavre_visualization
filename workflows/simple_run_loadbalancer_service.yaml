@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: naavre-visualization
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      metadata:
+        labels:
+          app: naavre-visualization
+      container:
+        name: naavre-visualization
+        image: adeelaashraf/naavre_visualization:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 5173
+        labels:
+          app: naavre-visualization
+

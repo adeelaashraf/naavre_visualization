@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: naavre-visualization-service
+  labels:
+    app: naavre-visualization
+spec:
+  type: LoadBalancer
+  selector:
+    app: naavre-visualization
+  ports:
+    - protocol: TCP
+      port: 5173
+      targetPort: 5173
+      nodePort: 31000
+

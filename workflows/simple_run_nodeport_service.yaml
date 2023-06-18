@@ -9,3 +9,4 @@ spec:
       container:
         image: adeelaashraf/naavre_visualization:latest
         imagePullPolicy: Always
+
