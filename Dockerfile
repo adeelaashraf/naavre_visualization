@@ -18,7 +18,9 @@ COPY favicon.ico /app
 COPY main.js /app
 COPY index.html /app
 COPY style.css /app
+
 COPY data.json /app
+COPY version.json /app
 
 # Expose the port your application will run on (if needed)
 EXPOSE 5173
