@@ -10,3 +10,8 @@ html, body {
   bottom: 0;
   width: 100%;
 }
+
+#ole-toolbar {
+    float:left;
+ width: 11%;
+}

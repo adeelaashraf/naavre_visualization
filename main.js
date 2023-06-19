@@ -13,6 +13,12 @@ import {applyTransform} from 'ol/extent.js';
 import {get as getProjection, getTransform} from 'ol/proj.js';
 import {register} from 'ol/proj/proj4.js';
 import {transformExtent} from 'ol/proj';
+import {ScaleLine, defaults as defaultControls} from 'ol/control.js';
+import {FullScreen, defaults as defaultControls2} from 'ol/control.js';
+import Overlay from 'ol/Overlay.js';
+import {toStringHDMS} from 'ol/coordinate.js';
+
+import versionData from './version.json'
 
 // Create a vector source and layer for drawing
 const vectorSource = new VectorSource({
@@ -22,11 +28,27 @@ const editLayer = new VectorLayer({
   source: vectorSource,
 });
 
+const scaleControl = new ScaleLine({
+  units: 'metric',
+  bar: true,
+  steps: 4,
+  text: true,
+  minWidth: 140,
+});
+
+
+const attributions =
+  'Version ' + versionData.version + 
+  ' <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>';
+
 const map = new Map({
+  controls: defaultControls().extend([scaleControl, new FullScreen()]),
   target: "map",
   layers: [
     new TileLayer({
-      source: new OSM(),
+      source: new OSM({
+        attributions: attributions
+      }),
     }),
     editLayer, // Add the vector layer to the map
   ],
@@ -35,6 +57,7 @@ const map = new Map({
     zoom: 2,
   }),
 });
+
 
 var editor = new ole.Editor(map);
 

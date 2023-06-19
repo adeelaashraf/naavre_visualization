@@ -1,15 +1,17 @@
 {
   "name": "naavre_visualization",
-  "version": "2023.06.08",
+  "version": "2023.06.19",
   "scripts": {
     "start": "vite --host",
     "build": "vite build",
     "serve": "vite preview"
   },
   "devDependencies": {
+    "dotenv-webpack": "^8.0.1",
     "vite": "^4.0.4"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "npm": "^9.7.1",
     "ol": "^7.4.0",
     "ol-ext": "^4.0.8",
