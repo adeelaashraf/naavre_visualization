@@ -20,7 +20,8 @@ COPY index.html /app
 COPY style.css /app
 
 COPY data.json /app
-COPY version.json /app
+COPY geotiffs /app/geotiffs
+COPY pngs /app/pngs
 
 # Expose the port your application will run on (if needed)
 EXPOSE 5173

@@ -9,7 +9,7 @@ update_env:
 	packageJson.version = '$$version'; \
 	fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 2));"
 
-update_python:
-	python3 python_scripts/env.py
+run_python:
+	python3 python_scripts/input_to_json.py
 
-update_version: update_env update_python
+update_version: update_env run_python

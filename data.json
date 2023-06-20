@@ -1,1 +1,13 @@
-{"file_names": ["./geotiffs/geotiff_TILE_000_BAND_perc_95_normalized_height.tif"], "min_x": 159892.19, "min_y": 604783.87, "max_x": 184892.19, "max_y": 607783.87}
+{
+    "projection": 28992,
+    "png_files": {
+        "./geotiffs/geotiff_TILE_000_BAND_perc_95_normalized_height.tif": {
+            "file_name": "./pngs/geotiff_TILE_000_BAND_perc_95_normalized_height.png",
+            "min_x": 159892.19,
+            "min_y": 604783.87,
+            "max_x": 184892.19,
+            "max_y": 607783.87
+        }
+    },
+    "version": "2023.06.20"
+}

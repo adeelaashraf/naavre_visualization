@@ -1,6 +1,6 @@
 {
   "name": "naavre_visualization",
-  "version": "2023.06.19",
+  "version": "2023.06.20",
   "scripts": {
     "start": "vite --host",
     "build": "vite build",

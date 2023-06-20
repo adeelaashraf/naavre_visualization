@@ -2,7 +2,7 @@
 
 ## About
 
-This project consists of an OpenLayers application to view GeoTIFF data.
+This project consists of an OpenLayers application to view GeoTIFF data as PNGs.
 
 ## Running 
 
