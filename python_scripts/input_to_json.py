@@ -35,6 +35,7 @@ geotiff_files_path = './geotiffs/'
 pngs_files_path = './pngs/'
 json_file_path = './data.json'
 json_dict = {}
+extensions = (".tif", ".TIF", ".tiff", "TIFF") 
 
 create_directory_if_not_exists(geotiff_files_path)
 create_directory_if_not_exists(pngs_files_path)
@@ -64,7 +65,16 @@ client.download(remote_path=remote_file_path, local_path=geotiff_files_path)
 
 ## 3. Save the projection (ESPG) from the first file.
 ## All files will be repojected using this projection (if varying).
-geotiff_files_list = glob.glob(geotiff_files_path + '/**/*.tif', recursive=True)
+def get_files_with_extensions(directory_path, extensions):
+    files = []
+    for file_name in os.listdir(directory_path):
+        if any(file_name.endswith(extension) for extension in extensions):
+            files.append(os.path.join(directory_path, file_name))
+    return files
+
+geotiff_files_list = get_files_with_extensions(geotiff_files_path, extensions)
+
+print(geotiff_files_list)
 # Open the TIFF file using rasterio
 with rasterio.open(geotiff_files_list[0]) as src:
     target_crs = src.crs
@@ -123,7 +133,12 @@ def tif_to_png(tif_file, png_file):
 png_files_dict = {}
 
 for tif_file in geotiff_files_list:
-    png_file= tif_file.replace(".tif", ".png")
+    #png_file= tif_file.replace(".tif", ".png")
+    for extension in extensions:
+        if tif_file.lower().endswith(extension.lower()):
+            png_file = tif_file[:-(len(extension))] + ".png"
+            break
+
     png_file = png_file.replace(geotiff_files_path, pngs_files_path)
 
     [min_x, min_y, max_x, max_y] = tif_to_png(tif_file, png_file)
