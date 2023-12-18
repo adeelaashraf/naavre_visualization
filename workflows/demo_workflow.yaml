@@ -1,0 +1,71 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: n-a-a-vre-dev-user-name-at-domain-com-
+  labels:
+    vlab_slug: laserfarm
+    app: naavre-visualization
+spec:
+    entrypoint: n-a-a-vre-dev-user-name-at-domain-com
+    arguments:
+      parameters:
+      - name: param_geotiff_path
+        value: 'a'
+      - name: param_hostname
+        value: 'b'
+      - name: param_password
+        value: 'c'
+      - name: param_login
+        value: 'd'
+    templates:
+    - name: n-a-a-vre-dev-user-name-at-domain-com
+      metadata:
+        labels:
+          app: naavre-visualization
+      dag:
+        tasks:
+        - name: viz-simple-input-dev-user-name-at-domain-com-2baafd9
+          template: viz-simple-input-dev-user-name-at-domain-com-2baafd9-tmp
+          arguments:
+            parameters:
+            - {name: param_geotiff_path, value: "{{workflow.parameters.param_geotiff_path}}"}
+            - {name: param_hostname, value: "{{workflow.parameters.param_hostname}}"}
+            - {name: param_password, value: "{{workflow.parameters.param_password}}"}
+            - {name: param_login, value: "{{workflow.parameters.param_login}}"}
+        - name: visualizer-806cd30
+          dependencies: [ viz-simple-input-dev-user-name-at-domain-com-2baafd9 ]
+          template: visualizer-806cd30-tmp
+          arguments:
+            parameters:
+            - {name: viz_input_b3ca6c6, value: "{{tasks.viz-simple-input-dev-user-name-at-domain-com-2baafd9.outputs.parameters.viz_input_b3ca6c6}}"}
+
+    - name: viz-simple-input-dev-user-name-at-domain-com-2baafd9-tmp
+      outputs:
+        parameters:
+          - name: viz_input_b3ca6c6
+            valueFrom:
+              path: /tmp/viz_input_b3ca6c6.json
+      container:
+        image: "qcdis/viz-simple-input-dev-user-name-at-domain-com"
+        imagePullPolicy: Always
+        command: ["/bin/bash", "-c"]
+        args:
+          - source /venv/bin/activate; python viz-simple-input-dev-user-name-at-domain-com.py
+            --param_geotiff_path "{{workflow.parameters.param_geotiff_path}}"
+            --param_hostname "{{workflow.parameters.param_hostname}}"
+            --param_password "{{workflow.parameters.param_password}}"
+            --param_login "{{workflow.parameters.param_login}}"
+            --id "b3ca6c6";
+    - name: visualizer-806cd30-tmp
+      inputs:
+        parameters:
+        - name: viz_input_b3ca6c6
+      outputs:
+        parameters:
+      container:
+        image: "adeelaashraf/naavre_visualization:latest"
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 5173
+        labels:
+          app: naavre-visualization

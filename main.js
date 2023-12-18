@@ -27,6 +27,39 @@ https://openlayers.org/en/latest/examples/full-screen.html
 https://github.com/geops/openlayers-editor
 */
 
+const fpsCounter = document.getElementById('fpsCounter');
+
+// Variables for FPS calculation
+let frames = 0;
+let lastTime = performance.now();
+let accumulatedTime = 0;
+
+// Function to update the FPS counter
+function updateFPS() {
+  const currentTime = performance.now();
+  const deltaTime = currentTime - lastTime;
+  lastTime = currentTime;
+
+  accumulatedTime += deltaTime;
+  frames++;
+
+  // Check if 3 seconds have passed
+  if (accumulatedTime >= 1000) {
+    const avgFPS = Math.round((frames / (accumulatedTime / 1000)));
+    fpsCounter.innerText = `FPS: ${avgFPS}`;
+    accumulatedTime = 0;
+    frames = 0;
+  }
+
+  // Request the next animation frame
+  requestAnimationFrame(updateFPS);
+}
+
+// Call the updateFPS function to start the FPS counter
+updateFPS();
+
+
+
 // Create a vector source and layer for drawing
 const vectorSource = new VectorSource({
   wrapX: false,

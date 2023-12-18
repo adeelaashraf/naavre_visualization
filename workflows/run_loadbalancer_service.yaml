@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: naavre-visualization
+spec:
+  entrypoint: main
+  arguments:
+    parameters:
+      - name: hostname
+        type: string
+        value: https://lifewatch.lab.uvalight.net:32443
+      - name: username
+        type: string
+        value: 20BNXDdL8mg24OaD
+      - name: password
+        type: string
+        value: zDoy0hNKkcnsdsQ@OYAVd
+      - name: remote_file_path
+        type: string
+        value: webdav/LAZ
+      - name: num_files
+        type: string
+        value: 1
+      - name: mode
+        type: string
+        value: webdav
+  templates:
+    - name: main
+      metadata:
+        labels:
+          app: naavre-visualization
+      inputs:
+        parameters:
+          - name: hostname
+            type: string
+          - name: username
+            type: string
+          - name: password
+            type: string
+          - name: remote_file_path
+            type: string
+          - name: num_files
+            type: string
+          - name: mode
+            type: string
+      container:
+        name: naavre-visualization
+        image: adeelaashraf/naavre_visualization:latest
+        imagePullPolicy: Always
+        args:
+          - "--hostname={{inputs.parameters.hostname}}"
+          - "--username={{inputs.parameters.username}}"
+          - "--password={{inputs.parameters.password}}"
+          - "--remote-file-path={{inputs.parameters.remote_file_path}}"
+          - "--num-files={{inputs.parameters.num_files}}"
+          - "--mode={{inputs.parameters.mode}}"
+        ports:
+          - containerPort: 5173
+        labels:
+          app: naavre-visualization
+

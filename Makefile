@@ -10,6 +10,7 @@ update_env:
 	fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 2));"
 
 run_python:
-	python3 python_scripts/input_to_json.py
+	python3 python_scripts/download_files.py
+	python3 python_scripts/prepare_input.py
 
 update_version: update_env run_python

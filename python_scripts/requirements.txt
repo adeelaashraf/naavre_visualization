@@ -3,3 +3,5 @@ Pillow
 python-dotenv
 tifffile
 webdavclient3
+requests
+argparse

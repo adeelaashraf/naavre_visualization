@@ -12,6 +12,11 @@ html, body {
 }
 
 #ole-toolbar {
-    float:left;
+ float:left;
  width: 11%;
+}
+
+.ol-zoom {
+  top: 3em;
+  left: .5em;
 }

@@ -39,11 +39,14 @@ RUN apk add --no-cache \
 
 RUN pip3 install --no-cache-dir -r python_scripts/requirements.txt
 
-#RUN python3 python_scripts/input_to_json.py
+# Copy the entrypoint script into the container
+COPY entrypoint_time.sh /app/entrypoint_time.sh
+
+# Make the entrypoint script executable
+RUN chmod +x /app/entrypoint_time.sh
 
 # Expose the port your application will run on (if needed)
 EXPOSE 5173
 
-# Start the application and echo the IP address link
-#CMD npm start && sh -c "ip route show default | awk '/default/ {print \"Application running at http://\" $3 \":5173\"}'"
-CMD python3 python_scripts/input_to_json.py && npm start && sh -c "ip route show default | awk '/default/ {print \"Application running at http://\" $3 \":5173\"}'"
+# Set the entrypoint script as the entrypoint for the container
+ENTRYPOINT ["/app/entrypoint_time.sh"]
